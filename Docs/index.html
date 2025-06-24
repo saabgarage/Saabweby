@@ -151,13 +151,12 @@
   </style>
 </head>
 <body>
- <div id="openInBrowserPrompt" style="background: #fff3f3; border: 2px solid #d60000; color: #d60000; padding: 15px; text-align: center; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;">
+<div id="openInBrowserPrompt" style="display: none; margin-top: 70px; background: #fff3f3; border: 2px solid #d60000; color: #d60000; padding: 15px; text-align: center; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;">
   ⚠️ <br>
-  TikTok’s in-app browser may block some features on this site.<br>
-  For the best experience, please open this page in your device’s default browser (Safari, Chrome, Firefox).<br><br>
-  To do this:<br>
-  <b>Tap the three dots ⋮ (top-right corner)</b> and select <b>“Open in browser”</b><br>
-  or <b>tap and hold any link</b> and choose <b>“Open in browser”</b>.
+  Some in-app browsers (like TikTok, Facebook, Instagram) may block certain features of this site.<br><br>
+  For the best experience, please open this page in your device’s main browser (Safari, Chrome, or Firefox).<br><br>
+  <b>How?</b><br>
+  Tap the <b>three dots (⋮)</b> or browser menu, then select <b>“Open in browser”</b>.
 </div>
 <header>
 <div style="position: absolute; top: 20px; right: 20px;">
@@ -266,5 +265,15 @@
   }
 </script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+  const inAppBrowser = (() => {
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    return /FBAN|FBAV|Instagram|Line|KAKAOTALK|WeChat|Snapchat|TikTok|Twitter|LinkedIn/i.test(ua);
+  })();
+
+  if (inAppBrowser) {
+    document.getElementById("openInBrowserPrompt").style.display = "block";
+  }
+</script>
 </body>
 </html>
