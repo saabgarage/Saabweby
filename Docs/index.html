@@ -266,13 +266,24 @@
 </script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script>
-  const inAppBrowser = (() => {
+  function isInAppBrowser() {
     const ua = navigator.userAgent || navigator.vendor || window.opera;
-    return /FBAN|FBAV|Instagram|Line|KAKAOTALK|WeChat|Snapchat|TikTok|Twitter|LinkedIn/i.test(ua);
-  })();
+    const inAppKeywords = /FBAN|FBAV|Instagram|Line|KAKAOTALK|WeChat|Snapchat|TikTok|Twitter|LinkedIn|wv|GSA/i.test(ua);
 
-  if (inAppBrowser) {
-    document.getElementById("openInBrowserPrompt").style.display = "block";
+    const isIOSWebView = (() => {
+      const ua = window.navigator.userAgent;
+      const isIOS = /iP(hone|od|ad)/.test(ua);
+      const isSafari = /Safari/.test(ua);
+      const isChrome = /CriOS/.test(ua);
+      // iOS WebView = iOS device AND NOT Safari AND NOT Chrome
+      return isIOS && !isSafari && !isChrome;
+    })();
+
+    return inAppKeywords || isIOSWebView;
+  }
+
+  if (isInAppBrowser()) {
+    document.getElementById('openInBrowserPrompt').style.display = 'block';
   }
 </script>
 </body>
